@@ -30,7 +30,7 @@
 
     <div class="mt-5">
         <h4>📂 Últimos archivos cargados</h4>
-        <table class="table table-hover mt-3">
+        <table class="table table-bordered align-middle shadow-sm">
             <thead>
                 <tr>
                     <th>Nombre</th>

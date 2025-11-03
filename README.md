@@ -18,12 +18,12 @@ Los usuarios pueden subir, descargar y eliminar sus archivos. El administrador p
 
 ## Tecnologías y herramientas
 
-- Backend: Laravel 12 (PHP 8.3)
-- Frontend: JavaScript (ES6+)
-- Base de datos: MySQL
-- UI / Estilo: Bootstrap 5.3 + toasts personalizados
-- Servidor local: Laragon
-- Autenticación: Laravel Breeze (personalizado)
+-   Backend: Laravel 12 (PHP 8.3)
+-   Frontend: JavaScript (ES6+)
+-   Base de datos: MySQL
+-   UI / Estilo: Bootstrap 5.3 + toasts personalizados
+-   Servidor local: Laragon
+-   Autenticación: Laravel Breeze (personalizado)
 
 ---
 
@@ -66,46 +66,46 @@ app/
 
 ### 1. Sistema de roles y grupos
 
-- CRUD completo para grupos.
-- Asignación de usuarios a grupos.
-- Cuotas configurables por grupo y usuario.
+-   CRUD completo para grupos.
+-   Asignación de usuarios a grupos.
+-   Cuotas configurables por grupo y usuario.
 
 ### 2. Panel de usuario
 
-- Subida de archivos mediante AJAX.
-- Listado con nombre, tamaño y fecha.
-- Eliminación y descarga seguras.
-- Indicadores de espacio usado y cuota disponible.
+-   Subida de archivos mediante AJAX.
+-   Listado con nombre, tamaño y fecha.
+-   Eliminación y descarga seguras.
+-   Indicadores de espacio usado y cuota disponible.
 
 ### 3. Lógica de subida de archivos
 
-- Validaciones completas en backend (PHP).
-- Cálculo de espacio usado y verificación de cuota antes de subir.
-- Validación por extensión (según configuración).
-- Análisis automático de archivos `.zip` (detecta archivos internos prohibidos).
-- Manejo visual de errores con toasts en el frontend.
+-   Validaciones completas en backend (PHP).
+-   Cálculo de espacio usado y verificación de cuota antes de subir.
+-   Validación por extensión (según configuración).
+-   Análisis automático de archivos `.zip` (detecta archivos internos prohibidos).
+-   Manejo visual de errores con toasts en el frontend.
 
 ### 4. Configuración global
 
-- Límite de cuota global editable (por defecto: 10 MB).
-- Gestión de extensiones prohibidas (separadas por coma).
-- Sección de configuración integrada al panel del administrador.
+-   Límite de cuota global editable (por defecto: 10 MB).
+-   Gestión de extensiones prohibidas (separadas por coma).
+-   Sección de configuración integrada al panel del administrador.
 
 ---
 
 ## Decisiones de diseño
 
-- **Separación de responsabilidades:**  
-  La lógica de negocio se concentra en `app/Services`, manteniendo los controladores simples.
+-   **Separación de responsabilidades:**  
+    La lógica de negocio se concentra en `app/Services`, manteniendo los controladores simples.
 
-- **Validación centralizada:**  
-  Las reglas de seguridad y almacenamiento se manejan desde `FileValidationService` y `StorageQuotaService`.
+-   **Validación centralizada:**  
+    Las reglas de seguridad y almacenamiento se manejan desde `FileValidationService` y `StorageQuotaService`.
 
-- **UX sin recargas:**  
-  Los formularios de subida, edición y eliminación funcionan con JavaScript moderno (`fetch` / `XMLHttpRequest`) y toasts.
+-   **UX sin recargas:**  
+    Los formularios de subida, edición y eliminación funcionan con JavaScript moderno (`fetch` / `XMLHttpRequest`) y toasts.
 
-- **Diseño mantenible:**  
-  La arquitectura es modular y permite añadir nuevas validaciones sin romper las existentes.
+-   **Diseño mantenible:**  
+    La arquitectura es modular y permite añadir nuevas validaciones sin romper las existentes.
 
 ---
 
@@ -113,44 +113,44 @@ app/
 
 1. **Clonar el repositorio**
 
-   ```bash
-   git clone https://github.com/angelfarid1998/storage-controller.git
-   cd storage-controller
-   ```
+    ```bash
+    git clone https://github.com/angelfarid1998/storage-controller.git
+    cd storage-controller
+    ```
 
 2. **Instalar dependencias**
 
-   ```bash
-   composer install
-   npm install && npm run build   # opcional si usas Breeze o Mix
-   ```
+    ```bash
+    composer install
+    npm install && npm run build
+    ```
 
 3. **Configurar entorno**
    Copiar `.env.example` a `.env`:
 
-   ```bash
-   cp .env.example .env
-   ```
+    ```bash
+    cp .env.example .env
+    ```
 
-   Editar las variables de conexión a la base de datos:
+    Editar las variables de conexión a la base de datos:
 
-   ```
-   DB_DATABASE=storage_controller
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
+    ```
+    DB_DATABASE=storage_controller
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
 
 4. **Ejecutar migraciones y seeders**
 
-   ```bash
-   php artisan migrate --seed
-   ```
+    ```bash
+    php artisan migrate --seed
+    ```
 
 5. **Iniciar el servidor**
-   ```bash
-   php artisan serve
-   ```
-   Acceder a `http://127.0.0.1:8000`
+    ```bash
+    php artisan serve
+    ```
+    Acceder a `http://127.0.0.1:8000`
 
 ---
 
@@ -160,6 +160,7 @@ app/
 | ------------- | -------------- | ---------- |
 | Administrador | admin@test.com | admin123   |
 | Usuario       | user@test.com  | user123    |
+| Test          | test@test.com  | test123    |
 
 ---
 
@@ -177,7 +178,7 @@ app/
 
 ## Notas finales
 
-- Código 100% PHP OOP y JavaScript moderno.
-- Cumple con los requerimientos funcionales y no funcionales del documento de prueba.
-- Estructura clara, sin dependencias innecesarias.
-- Código legible y mantenible.
+-   Código 100% PHP OOP y JavaScript moderno.
+-   Cumple con los requerimientos funcionales y no funcionales del documento de prueba.
+-   Estructura clara, sin dependencias innecesarias.
+-   Código legible y mantenible.

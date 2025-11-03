@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-md-6">
-            <label class="form-label fw-semibold">Extensiones prohibidas</label>
+            <label class="form-label fw-semibold">Extensiones prohibidas (separadas por comas)</label>
             <input type="text" id="forbiddenExtensions" class="form-control" value="{{ $forbiddenExt }}"
                 placeholder="ej: exe,bat,js,php,sh" required>
         </div>
