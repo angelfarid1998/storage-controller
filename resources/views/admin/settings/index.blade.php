@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container py-4">
-    <h3 class="mb-4 text-primary">Configuración Global</h3>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>⚙️ Configuración Global</h2>
+        <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">⬅ Volver</a>
+    </div>
 
     <form id="settingsForm" class="row g-3 align-items-center">
         <div class="col-md-4">
