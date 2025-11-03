@@ -1,59 +1,183 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Controlador de Almacenamiento Seguro (PHP / JS)
 
-## About Laravel
+**Autor:** Angel Peñaranda  
+**Stack:** Laravel 12 (PHP 8.3) + Vanilla JavaScript + MySQL  
+**Entorno:** Laragon (localhost)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Descripción general
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Este proyecto implementa un sistema de gestión de archivos seguro, con control de cuotas, grupos, roles y validaciones diseñadas para garantizar el uso responsable del almacenamiento.
 
-## Learning Laravel
+Los usuarios pueden subir, descargar y eliminar sus archivos. El administrador puede gestionar grupos, asignar cuotas y definir extensiones prohibidas desde un panel central.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Tecnologías y herramientas
 
-## Laravel Sponsors
+- Backend: Laravel 12 (PHP 8.3)
+- Frontend: JavaScript (ES6+)
+- Base de datos: MySQL
+- UI / Estilo: Bootstrap 5.3 + toasts personalizados
+- Servidor local: Laragon
+- Autenticación: Laravel Breeze (personalizado)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Estructura general
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```
+app/
+ ├── Http/
+ │   ├── Controllers/
+ │   │   ├── Admin/
+ │   │   │   ├── GroupController.php
+ │   │   │   ├── UserController.php
+ │   │   │   └── SettingsController.php
+ │   │   ├── FileController.php
+ │   │   └── Controller.php
+ │
+ ├── Models/
+ │   ├── User.php
+ │   ├── Group.php
+ │   ├── File.php
+ │   └── Setting.php
+ │
+ └── Services/
+     ├── FileValidationService.php
+     └── StorageQuotaService.php
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Roles del sistema
 
-## Code of Conduct
+| Rol           | Permisos                                                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| Administrador | Crear, editar y eliminar grupos. Asignar usuarios a grupos. Definir cuotas y extensiones prohibidas. |
+| Usuario       | Iniciar sesión y subir archivos dentro de su límite de cuota. Ver y eliminar sus archivos.           |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Funcionalidades implementadas
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1. Sistema de roles y grupos
 
-## License
+- CRUD completo para grupos.
+- Asignación de usuarios a grupos.
+- Cuotas configurables por grupo y usuario.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 2. Panel de usuario
+
+- Subida de archivos mediante AJAX.
+- Listado con nombre, tamaño y fecha.
+- Eliminación y descarga seguras.
+- Indicadores de espacio usado y cuota disponible.
+
+### 3. Lógica de subida de archivos
+
+- Validaciones completas en backend (PHP).
+- Cálculo de espacio usado y verificación de cuota antes de subir.
+- Validación por extensión (según configuración).
+- Análisis automático de archivos `.zip` (detecta archivos internos prohibidos).
+- Manejo visual de errores con toasts en el frontend.
+
+### 4. Configuración global
+
+- Límite de cuota global editable (por defecto: 10 MB).
+- Gestión de extensiones prohibidas (separadas por coma).
+- Sección de configuración integrada al panel del administrador.
+
+---
+
+## Decisiones de diseño
+
+- **Separación de responsabilidades:**  
+  La lógica de negocio se concentra en `app/Services`, manteniendo los controladores simples.
+
+- **Validación centralizada:**  
+  Las reglas de seguridad y almacenamiento se manejan desde `FileValidationService` y `StorageQuotaService`.
+
+- **UX sin recargas:**  
+  Los formularios de subida, edición y eliminación funcionan con JavaScript moderno (`fetch` / `XMLHttpRequest`) y toasts.
+
+- **Diseño mantenible:**  
+  La arquitectura es modular y permite añadir nuevas validaciones sin romper las existentes.
+
+---
+
+## Instalación y configuración
+
+1. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/angelfarid1998/storage-controller.git
+   cd storage-controller
+   ```
+
+2. **Instalar dependencias**
+
+   ```bash
+   composer install
+   npm install && npm run build   # opcional si usas Breeze o Mix
+   ```
+
+3. **Configurar entorno**
+   Copiar `.env.example` a `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Editar las variables de conexión a la base de datos:
+
+   ```
+   DB_DATABASE=storage_controller
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+4. **Ejecutar migraciones y seeders**
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. **Iniciar el servidor**
+   ```bash
+   php artisan serve
+   ```
+   Acceder a `http://127.0.0.1:8000`
+
+---
+
+## Credenciales de prueba
+
+| Rol           | Email          | Contraseña |
+| ------------- | -------------- | ---------- |
+| Administrador | admin@test.com | admin123   |
+| Usuario       | user@test.com  | user123    |
+
+---
+
+## Pruebas clave
+
+| Prueba                                   | Resultado esperado                     |
+| ---------------------------------------- | -------------------------------------- |
+| Subida dentro de la cuota                | Permitido                              |
+| Subida que excede la cuota               | Bloqueado con mensaje “Cuota excedida” |
+| Subida de `.exe` o `.php`                | Bloqueado                              |
+| Subida de `.zip` con archivos prohibidos | Bloqueado con detalle del archivo      |
+| Subida de `.zip` válido                  | Permitido                              |
+
+---
+
+## Notas finales
+
+- Código 100% PHP OOP y JavaScript moderno.
+- Cumple con los requerimientos funcionales y no funcionales del documento de prueba.
+- Estructura clara, sin dependencias innecesarias.
+- Código legible y mantenible.
